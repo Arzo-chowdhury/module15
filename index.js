@@ -1,10 +1,10 @@
-import express from "express";
+import express, { Router } from "express";
 import cors from "cors";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
-import { REQUEST_TIME } from"./src/configs/config.js";
+import { REQUEST_TIME, WEB_CACHE } from"./src/configs/config.js";
 
 
 
@@ -23,4 +23,17 @@ const limiter = rateLimit({
     max: 100,
     message: "Too many requests from this IP, please try again later.",
 
+});
+app.use(limiter);
+
+//cache
+app.set("etge",WEB_CACHE);
+
+
+//API ROUTES
+app.use("/api/v1", router )
+
+app.listen(PORT,( )=>{
+    console.log("Server is running on port", PORT)
 })
+
